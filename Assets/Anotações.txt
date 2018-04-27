@@ -1,0 +1,3 @@
+Configuracao do Player:
+
+1 - Na capsula que será o player, add o componente Character Controller e remover Capsule Collider
