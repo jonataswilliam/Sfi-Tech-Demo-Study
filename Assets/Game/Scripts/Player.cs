@@ -23,13 +23,19 @@ public class Player : MonoBehaviour {
 	void CalculateMove() {
 		float horizontal = Input.GetAxis("Horizontal");
 		float vertical = Input.GetAxis("Vertical");
-
+		
 		// Guarda direcao de acordo com a entrada no controle do jogador
 		Vector3 direction = new Vector3( horizontal, 0, vertical);
 		Vector3 velocity = direction * _speed;
 
+		
+
 		//Aplica gravidade no personagem
 		velocity.y -= _gravity;
+
+		// Transformando valores que alteram o Local Space para alteração do World Space.
+		velocity = transform.transform.TransformDirection(velocity);	
+		
 
 		// Aplica Movimentação
 		_controller.Move(velocity * Time.deltaTime);

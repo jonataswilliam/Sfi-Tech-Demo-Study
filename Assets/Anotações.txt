@@ -1,3 +1,8 @@
 Configuracao do Player:
 
 1 - Na capsula que será o player, add o componente Character Controller e remover Capsule Collider
+
+
+Configurando Camera em primeira pessoa:
+1 - Colocar a camera como filho do player e zerar os valores da camera;
+2 - Para acertar o problema de controles invertidos, zeramos o valor de rotação para 0. A camera estará movendo em Local Space, será necessário trocar para World Space. Conforme Script Player.

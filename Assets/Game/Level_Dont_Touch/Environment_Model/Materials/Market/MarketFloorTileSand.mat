@@ -64,14 +64,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Border: 0.01
-    - _BumpScale: -0.47
+    - _BumpScale: 0.71
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.729
+    - _Glossiness: 0.361
     - _GlossyReflections: 1
-    - _Metallic: 0.142
+    - _Metallic: 0.334
     - _Mode: 0
     - _OcclusionStrength: 1
     - _OutlineFront: 0
