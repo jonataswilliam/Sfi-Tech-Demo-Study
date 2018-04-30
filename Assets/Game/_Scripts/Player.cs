@@ -13,11 +13,39 @@ public class Player : MonoBehaviour {
 	// Use this for initialization
 	void Start () {	
 		_controller = GetComponent<CharacterController>();
+
+		// Escondendo e travando o Mouse no centro do tela
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		CalculateMove();
+
+		// Habilitando cursor novamente se o ESC for pressionando.
+		if(Input.GetKeyDown(KeyCode.Escape)) {
+			Cursor.visible = true;
+			Cursor.lockState = CursorLockMode.None;
+		}
+
+
+		if(Input.GetMouseButtonDown(0)) {
+			// Armazenando o valor do centro da tela
+			Vector3 _centerOfScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
+
+			// Criando a origem do disparo do RayCast
+			Ray rayOrigin = Camera.main.ScreenPointToRay(_centerOfScreen);
+
+			Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
+
+			// Chamando o sistema de disparo do RayCast. Verifica se atinge algum object que possui um Collider. Distancia maximo do raio(MaxDepth) = Infinito
+			if(Physics.Raycast(rayOrigin, Mathf.Infinity)) {
+				Debug.Log("RayCast acertou alguma coisa!!");				
+			}
+		}
+
 	}
 
 	void CalculateMove() {
