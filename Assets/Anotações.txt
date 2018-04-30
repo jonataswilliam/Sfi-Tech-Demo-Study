@@ -1,11 +1,19 @@
 Configuracao do Player:
 
-1 - Na capsula que será o player, add o componente Character Controller e remover Capsule Collider
+1 - Na capsula que serï¿½ o player, add o componente Character Controller e remover Capsule Collider
 
 
 Configurando Camera em primeira pessoa:
 1 - Colocar a camera como filho do player e zerar os valores da camera;
-2 - Para acertar o problema de controles invertidos, zeramos o valor de rotação para 0. A camera estará movendo em Local Space, será necessário trocar para World Space. Conforme Script Player.
+2 - Para acertar o problema de controles invertidos, zeramos o valor de rotaï¿½ï¿½o para 0. A camera estarï¿½ movendo em Local Space, serï¿½ necessï¿½rio trocar para World Space. Conforme Script Player.
 
-Rotação do Mouse para visualização:
-1 - Ao criar a rotação do mouse para olhar para cima e para baixo, o player se movimentará quando alterar o angulo de visão. Para ajustar isso, criar um GameObject novo, zerar os valores, colocá-lo como filho do Player e colocar os scripts de rotação no novo objeto. A Camera passará também a ser filha do novo objeto criado.(Deve ser colocada como filha após o GameObject novo ser zerado).;
+Rotaï¿½ï¿½o do Mouse para visualizaï¿½ï¿½o:
+1 - Ao criar a rotaï¿½ï¿½o do mouse para olhar para cima e para baixo, o player se movimentarï¿½ quando alterar o angulo de visï¿½o. Para ajustar isso, criar um GameObject novo, zerar os valores, colocï¿½-lo como filho do Player e colocar os scripts de rotaï¿½ï¿½o no novo objeto. A Camera passarï¿½ tambï¿½m a ser filha do novo objeto criado.(Deve ser colocada como filha apï¿½s o GameObject novo ser zerado);
+
+Navegation Mesh:
+1 - Para criar uma Navegation mesh, indicando onde o jogador pode ou nao caminhar, o objeto na qual ele caminharÃ¡ deverÃ¡ estar setado para static;
+2 - Para dar o Bake e criar a NavMesh, ir em Windlow > Navigation. Selecioanar a aba bake, o GameObject que serÃ¡ utilizado e clicar em bake;
+3 - Add o component NavMesh Agent, que Ã© o que permite que o objeto recebea informaÃ§Ãµes sobre onde pode caminha. Ele forÃ§arÃ¡ o player a respeitar andar apenas onde estÃ¡ definnido pelo Navegation criado no item 2;
+
+ConfiguraÃ§Ã£o da Arma: 
+1 - Se ao posicionar a arma, a camera estiver cortando ela por estar prÃ³xima, basta alterar o valor Cliping Panes > Near na camera;
