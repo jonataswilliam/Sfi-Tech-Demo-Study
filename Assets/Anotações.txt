@@ -6,3 +6,6 @@ Configuracao do Player:
 Configurando Camera em primeira pessoa:
 1 - Colocar a camera como filho do player e zerar os valores da camera;
 2 - Para acertar o problema de controles invertidos, zeramos o valor de rotação para 0. A camera estará movendo em Local Space, será necessário trocar para World Space. Conforme Script Player.
+
+Rotação do Mouse para visualização:
+1 - Ao criar a rotação do mouse para olhar para cima e para baixo, o player se movimentará quando alterar o angulo de visão. Para ajustar isso, criar um GameObject novo, zerar os valores, colocá-lo como filho do Player e colocar os scripts de rotação no novo objeto. A Camera passará também a ser filha do novo objeto criado.(Deve ser colocada como filha após o GameObject novo ser zerado).;
