@@ -6,18 +6,19 @@ public class Player : MonoBehaviour {
 
 	private CharacterController _controller;
 
-	[SerializeField]
-	private float _speed = 3.5f;
+	[SerializeField] private float _speed = 3.5f;
 	private float _gravity = 9.81f; //Gravidade da Terra
+	[SerializeField] private GameObject _muzzleFlash;
+	[SerializeField] private GameObject _hitMarkerPrefab;
 
-	// Use this for initialization
+	// Use this for initialization	
+
 	void Start () {	
 		_controller = GetComponent<CharacterController>();
 
 		// Escondendo e travando o Mouse no centro do tela
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
-
 	}
 	
 	// Update is called once per frame
@@ -31,7 +32,7 @@ public class Player : MonoBehaviour {
 		}
 
 
-		if(Input.GetMouseButtonDown(0)) {
+		if(Input.GetMouseButton(0)) {
 			// Armazenando o valor do centro da tela
 			// Vector3 _centerOfScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
 			// Criando a origem do disparo do RayCast pelo centro da tela
@@ -52,8 +53,18 @@ public class Player : MonoBehaviour {
 
 			// Chamando o sistema de disparo do RayCast. Verifica se atinge algum object que possui um Collider. HitInfo retornará informacoes do objeto atingido.
 			if(Physics.Raycast(rayOrigin, out hitInfo)) {			
-				Debug.Log("Hit:" + hitInfo.transform.name);
+				// Com o Quaternion LookRotatiom e passando a normal do hitinfo o efeito será aplicado na angulacao correta do local atingido.
+				GameObject hitMarker = Instantiate(_hitMarkerPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+				Destroy(hitMarker, 1f);				
 			}
+
+			
+			// Ativa particulas de tiro
+			_muzzleFlash.SetActive(true);
+
+		} else {
+			// Desativa particulas de tiro
+			_muzzleFlash.SetActive(true);
 		}
 
 	}

@@ -16,3 +16,15 @@ Navegation Mesh:
 Configuração da Arma: 
 1 - Se ao posicionar a arma, a camera estiver cortando ela por estar próxima, basta alterar o valor Cliping Panes > Near na camera;
 2 - Para criar a mira no centro da tela, add uma Image, zerar os valores e alterar a Source Image para a imagem que será utilizada na mira.
+
+RayCast: 
+O rayCast pode ser dividida em 2 partes: 
+    1) O Lançamento do Raio na qual declara-se a origem deste raio.
+    2) informações obtidas por esse raio.
+
+
+HitMark:
+1 - Para criar o HitMark que dá o efeito de onde os tiros estão acertando, add um GameObject ao script do player, add a particula de Hitmark no Inspector e Instanciar quando o Raycast atingir algo. (Conforme script) 
+2 - Para deletar todos os hitmarks que foram criados com o Instantiate há duas formas:
+    1) Criar um script que destroy o objeto a cada x tempo e coloca-lo no hitmark.
+    2) Atribuir o Instantiate a uma variavel do tipo GameObject no mesmo scipit do player e aplicar o Destroy após x segundos.
