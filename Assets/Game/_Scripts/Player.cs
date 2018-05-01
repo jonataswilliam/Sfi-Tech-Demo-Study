@@ -33,10 +33,14 @@ public class Player : MonoBehaviour {
 
 		if(Input.GetMouseButtonDown(0)) {
 			// Armazenando o valor do centro da tela
-			Vector3 _centerOfScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
+			// Vector3 _centerOfScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
+			// Criando a origem do disparo do RayCast pelo centro da tela
+			// Ray rayOrigin = Camera.main.ScreenPointToRay(_centerOfScreen);
 
-			// Criando a origem do disparo do RayCast
-			Ray rayOrigin = Camera.main.ScreenPointToRay(_centerOfScreen);
+
+			// Criando a origem do disparo do RayCast usando a viewport como referencia. O calculo da viewport é feito de 0 a 1.
+			Ray rayOrigin = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+			
 			// Tipo de dado para armazenar informacao de retorno do raycast informando o que foi atingido.
 			RaycastHit hitInfo;
 
