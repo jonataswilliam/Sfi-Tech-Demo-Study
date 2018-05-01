@@ -28,3 +28,11 @@ HitMark:
 2 - Para deletar todos os hitmarks que foram criados com o Instantiate há duas formas:
     1) Criar um script que destroy o objeto a cada x tempo e coloca-lo no hitmark.
     2) Atribuir o Instantiate a uma variavel do tipo GameObject no mesmo scipit do player e aplicar o Destroy após x segundos.
+
+
+HUD Munição:
+1 - Add Script ao canvas, que irá controlar tudo que for de UI. (UIManager);
+2 - Add UI > Text. Ajustar posicao na tela e add ao script UIManager;
+3 - Importar biblioteca UnityEngine.UI no script;
+4 - Criar método que recebera do player quanta municao ainda existe e print no Text.
+5 - Dentro do script do Player criar uma variavel do tipo UIManager e buscar a referencia do objeto que está o script UIManager.(Conforme script)

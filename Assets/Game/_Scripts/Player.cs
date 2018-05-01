@@ -8,12 +8,14 @@ public class Player : MonoBehaviour {
 
 	[SerializeField] private float _speed = 3.5f;
 	private float _gravity = 9.81f; //Gravidade da Terra
-	[SerializeField] private GameObject _muzzleFlash;
+	[SerializeField] private GameObject _muzzleFlash;	
 	[SerializeField] private GameObject _hitMarkerPrefab;
 	[SerializeField] private AudioSource _weaponAudio;
 	[SerializeField] private int currentAmmo;
 	private int maxAmmo = 50; 
 	private bool _isReLoading = false;
+
+	private UIManager _uiManager;
 
 	// Use this for initialization	
 
@@ -25,6 +27,8 @@ public class Player : MonoBehaviour {
 		Cursor.lockState = CursorLockMode.Locked;		
 
 		currentAmmo = maxAmmo;
+
+		_uiManager = GameObject.Find("Canvas").GetComponent<UIManager> ();
 	}
 	
 	// Update is called once per frame
@@ -42,7 +46,7 @@ public class Player : MonoBehaviour {
 			Shoot();
 		} else {
 			// Desativa particulas de tiro
-			_muzzleFlash.SetActive(true);			
+			_muzzleFlash.SetActive(false);			
 			_weaponAudio.Stop();
 		}
 
@@ -86,6 +90,7 @@ public class Player : MonoBehaviour {
 		}
 		
 		currentAmmo--;
+		_uiManager.UpdateAmmo(currentAmmo);
 		
 		// Ativa particulas de tiro
 		_muzzleFlash.SetActive(true);
@@ -110,9 +115,12 @@ public class Player : MonoBehaviour {
 		_controller.Move(velocity * Time.deltaTime);
 	}
 
-	IEnumerator Reload () {
+	IEnumerator Reload () {		
+		_uiManager.UpdateAmmo(99999);
 		yield return new WaitForSeconds(1.5f);
 		currentAmmo = maxAmmo;
+		_uiManager.UpdateAmmo(currentAmmo);
+		_isReLoading = false;
 	}
 
 }
