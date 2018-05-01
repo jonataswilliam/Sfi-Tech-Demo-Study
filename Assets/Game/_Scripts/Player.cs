@@ -37,12 +37,18 @@ public class Player : MonoBehaviour {
 
 			// Criando a origem do disparo do RayCast
 			Ray rayOrigin = Camera.main.ScreenPointToRay(_centerOfScreen);
+			// Tipo de dado para armazenar informacao de retorno do raycast informando o que foi atingido.
+			RaycastHit hitInfo;
 
 			Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
 
 			// Chamando o sistema de disparo do RayCast. Verifica se atinge algum object que possui um Collider. Distancia maximo do raio(MaxDepth) = Infinito
-			if(Physics.Raycast(rayOrigin, Mathf.Infinity)) {
-				Debug.Log("RayCast acertou alguma coisa!!");				
+			// if(Physics.Raycast(rayOrigin, Mathf.Infinity)) {
+			
+
+			// Chamando o sistema de disparo do RayCast. Verifica se atinge algum object que possui um Collider. HitInfo retornará informacoes do objeto atingido.
+			if(Physics.Raycast(rayOrigin, out hitInfo)) {			
+				Debug.Log("Hit:" + hitInfo.transform.name);
 			}
 		}
 
