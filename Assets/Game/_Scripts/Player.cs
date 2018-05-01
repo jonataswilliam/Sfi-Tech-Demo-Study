@@ -10,6 +10,9 @@ public class Player : MonoBehaviour {
 	private float _gravity = 9.81f; //Gravidade da Terra
 	[SerializeField] private GameObject _muzzleFlash;
 	[SerializeField] private GameObject _hitMarkerPrefab;
+	[SerializeField] private AudioSource _weaponAudio;
+	[SerializeField] private int currentAmmo;
+	private int maxAmmo = 50; 
 
 	// Use this for initialization	
 
@@ -18,7 +21,9 @@ public class Player : MonoBehaviour {
 
 		// Escondendo e travando o Mouse no centro do tela
 		Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.lockState = CursorLockMode.Locked;		
+
+		currentAmmo = maxAmmo;
 	}
 	
 	// Update is called once per frame
@@ -32,41 +37,52 @@ public class Player : MonoBehaviour {
 		}
 
 
-		if(Input.GetMouseButton(0)) {
-			// Armazenando o valor do centro da tela
-			// Vector3 _centerOfScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
-			// Criando a origem do disparo do RayCast pelo centro da tela
-			// Ray rayOrigin = Camera.main.ScreenPointToRay(_centerOfScreen);
-
-
-			// Criando a origem do disparo do RayCast usando a viewport como referencia. O calculo da viewport é feito de 0 a 1.
-			Ray rayOrigin = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-			
-			// Tipo de dado para armazenar informacao de retorno do raycast informando o que foi atingido.
-			RaycastHit hitInfo;
-
-			Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
-
-			// Chamando o sistema de disparo do RayCast. Verifica se atinge algum object que possui um Collider. Distancia maximo do raio(MaxDepth) = Infinito
-			// if(Physics.Raycast(rayOrigin, Mathf.Infinity)) {
-			
-
-			// Chamando o sistema de disparo do RayCast. Verifica se atinge algum object que possui um Collider. HitInfo retornará informacoes do objeto atingido.
-			if(Physics.Raycast(rayOrigin, out hitInfo)) {			
-				// Com o Quaternion LookRotatiom e passando a normal do hitinfo o efeito será aplicado na angulacao correta do local atingido.
-				GameObject hitMarker = Instantiate(_hitMarkerPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
-				Destroy(hitMarker, 1f);				
-			}
-
-			
-			// Ativa particulas de tiro
-			_muzzleFlash.SetActive(true);
-
+		if(Input.GetMouseButton(0) && currentAmmo > 0) {
+			Shoot();
 		} else {
 			// Desativa particulas de tiro
-			_muzzleFlash.SetActive(true);
+			_muzzleFlash.SetActive(true);			
+			_weaponAudio.Stop();
 		}
 
+	}
+
+
+	void Shoot() {
+		// Armazenando o valor do centro da tela
+		// Vector3 _centerOfScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
+		// Criando a origem do disparo do RayCast pelo centro da tela
+		// Ray rayOrigin = Camera.main.ScreenPointToRay(_centerOfScreen);
+
+
+		// Criando a origem do disparo do RayCast usando a viewport como referencia. O calculo da viewport é feito de 0 a 1.
+		Ray rayOrigin = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+		
+		// Tipo de dado para armazenar informacao de retorno do raycast informando o que foi atingido.
+		RaycastHit hitInfo;
+
+		Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
+
+		// Chamando o sistema de disparo do RayCast. Verifica se atinge algum object que possui um Collider. Distancia maximo do raio(MaxDepth) = Infinito
+		// if(Physics.Raycast(rayOrigin, Mathf.Infinity)) {
+		
+
+		// Chamando o sistema de disparo do RayCast. Verifica se atinge algum object que possui um Collider. HitInfo retornará informacoes do objeto atingido.
+		if(Physics.Raycast(rayOrigin, out hitInfo)) {			
+			// Com o Quaternion LookRotatiom e passando a normal do hitinfo o efeito será aplicado na angulacao correta do local atingido.
+			GameObject hitMarker = Instantiate(_hitMarkerPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+			Destroy(hitMarker, 1f);				
+		}
+
+		// Verifica se o audio já está sendo tocado antes de dispara outro. Evita bug de som. 
+		if(_weaponAudio.isPlaying == false ) {
+			_weaponAudio.Play();
+		}
+		
+		currentAmmo--;
+		
+		// Ativa particulas de tiro
+		_muzzleFlash.SetActive(true);
 	}
 
 	void CalculateMove() {
