@@ -13,6 +13,7 @@ public class Player : MonoBehaviour {
 	[SerializeField] private AudioSource _weaponAudio;
 	[SerializeField] private int currentAmmo;
 	private int maxAmmo = 50; 
+	private bool _isReLoading = false;
 
 	// Use this for initialization	
 
@@ -43,6 +44,11 @@ public class Player : MonoBehaviour {
 			// Desativa particulas de tiro
 			_muzzleFlash.SetActive(true);			
 			_weaponAudio.Stop();
+		}
+
+		if(Input.GetKeyDown(KeyCode.R) && !_isReLoading) {			
+			StartCoroutine(Reload());
+			_isReLoading = true;
 		}
 
 	}
@@ -102,6 +108,11 @@ public class Player : MonoBehaviour {
  
 		// Aplica Movimentação
 		_controller.Move(velocity * Time.deltaTime);
+	}
+
+	IEnumerator Reload () {
+		yield return new WaitForSeconds(1.5f);
+		currentAmmo = maxAmmo;
 	}
 
 }
