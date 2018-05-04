@@ -43,3 +43,14 @@ Pegar Moeda:
     1 -  Para ativar um som ao pegar a moeda, que será destruida após pega-la, utilizar o recurso de Instanciar o Audio Source. AudioSource.PlayClipAtPoint.
     2 - Mudar o tipo de variavel para AudioClip. Atribuir o som no Inspector.
     3 - Chamar função AudioSource.PlayClipAtPoint.
+
+
+Correção da Arma: 
+    A Arma está atravessando os objetos e sumindo. Para Corrigir esse bug:
+    1 - Criar uma nova Camera, add uma nova Layer(Weapon, por exemplo) e selecioná-la na camera nova.;
+    2 - Setar o Clear Flag para Depth Only;
+    3 - Arrastar a nova camera para dentro da camera principal e dar um Reset nos valores;
+    4 - Arrastar a arma para dentro da nova camera;
+    5 - Na nova camera selecionar a Layer escolhida novamente para poder aplicar a todos os filhos.
+    6 - Dentro da camera principal desativar a nova layer na opcao Curling Mask;
+    7 - Dentro da camera nova ativar apenas a layer nova na opcao Curling Mask e alterar o Depth para 1 para que seja sempre mostrada sobre a camera Principal;

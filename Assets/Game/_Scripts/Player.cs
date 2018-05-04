@@ -85,7 +85,13 @@ public class Player : MonoBehaviour {
 		if(Physics.Raycast(rayOrigin, out hitInfo)) {			
 			// Com o Quaternion LookRotatiom e passando a normal do hitinfo o efeito será aplicado na angulacao correta do local atingido.
 			GameObject hitMarker = Instantiate(_hitMarkerPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
-			Destroy(hitMarker, 1f);				
+			Destroy(hitMarker, 1f);		
+
+			// Verifica se atingiu a caixa para fazer a troca pela caixa quebrada
+			Destructables _crateDestroy = hitInfo.transform.GetComponent<Destructables> ();
+			if(_crateDestroy != null) {
+				_crateDestroy.DestroyCrate();
+			}		
 		}
 
 		// Verifica se o audio já está sendo tocado antes de dispara outro. Evita bug de som. 
