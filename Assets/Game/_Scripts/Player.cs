@@ -10,12 +10,16 @@ public class Player : MonoBehaviour {
 	private float _gravity = 9.81f; //Gravidade da Terra
 	[SerializeField] private GameObject _muzzleFlash;	
 	[SerializeField] private GameObject _hitMarkerPrefab;
-	[SerializeField] private AudioSource _weaponAudio;
+	[SerializeField] private AudioSource _weaponAudio;	
 	[SerializeField] private int currentAmmo;
 	private int maxAmmo = 50; 
 	private bool _isReLoading = false;
 
 	private UIManager _uiManager;
+
+	public bool hasCoin = false;
+
+	[SerializeField] GameObject _weapon;
 
 	// Use this for initialization	
 
@@ -86,7 +90,7 @@ public class Player : MonoBehaviour {
 
 		// Verifica se o audio já está sendo tocado antes de dispara outro. Evita bug de som. 
 		if(_weaponAudio.isPlaying == false ) {
-			_weaponAudio.Play();
+			_weaponAudio.Play();			
 		}
 		
 		currentAmmo--;
@@ -121,6 +125,10 @@ public class Player : MonoBehaviour {
 		currentAmmo = maxAmmo;
 		_uiManager.UpdateAmmo(currentAmmo);
 		_isReLoading = false;
+	}
+
+	public void EnableWeapons () {
+		_weapon.SetActive(true);
 	}
 
 }

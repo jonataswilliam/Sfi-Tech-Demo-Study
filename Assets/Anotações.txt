@@ -36,3 +36,10 @@ HUD Munição:
 3 - Importar biblioteca UnityEngine.UI no script;
 4 - Criar método que recebera do player quanta municao ainda existe e print no Text.
 5 - Dentro do script do Player criar uma variavel do tipo UIManager e buscar a referencia do objeto que está o script UIManager.(Conforme script)
+
+
+Pegar Moeda:
+    Som: 
+    1 -  Para ativar um som ao pegar a moeda, que será destruida após pega-la, utilizar o recurso de Instanciar o Audio Source. AudioSource.PlayClipAtPoint.
+    2 - Mudar o tipo de variavel para AudioClip. Atribuir o som no Inspector.
+    3 - Chamar função AudioSource.PlayClipAtPoint.
