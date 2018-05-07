@@ -18,6 +18,7 @@ public class Player : MonoBehaviour {
 	private UIManager _uiManager;
 
 	public bool hasCoin = false;
+	private bool hasWeapon = false;
 
 	[SerializeField] GameObject _weapon;
 
@@ -83,9 +84,11 @@ public class Player : MonoBehaviour {
 
 		// Chamando o sistema de disparo do RayCast. Verifica se atinge algum object que possui um Collider. HitInfo retornará informacoes do objeto atingido.
 		if(Physics.Raycast(rayOrigin, out hitInfo)) {			
-			// Com o Quaternion LookRotatiom e passando a normal do hitinfo o efeito será aplicado na angulacao correta do local atingido.
-			GameObject hitMarker = Instantiate(_hitMarkerPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
-			Destroy(hitMarker, 1f);		
+			if(hasWeapon) {
+				// Com o Quaternion LookRotatiom e passando a normal do hitinfo o efeito será aplicado na angulacao correta do local atingido.
+				GameObject hitMarker = Instantiate(_hitMarkerPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+				Destroy(hitMarker, 1f);						
+			}
 
 			// Verifica se atingiu a caixa para fazer a troca pela caixa quebrada
 			Destructables _crateDestroy = hitInfo.transform.GetComponent<Destructables> ();
@@ -99,11 +102,15 @@ public class Player : MonoBehaviour {
 			_weaponAudio.Play();			
 		}
 		
-		currentAmmo--;
-		_uiManager.UpdateAmmo(currentAmmo);
+		// Verifica se player Possui Arma
+		if(hasWeapon) {
+			currentAmmo--;
+			_uiManager.UpdateAmmo(currentAmmo);
+			
+			// Ativa particulas de tiro
+			_muzzleFlash.SetActive(true);
+		}
 		
-		// Ativa particulas de tiro
-		_muzzleFlash.SetActive(true);
 	}
 
 	void CalculateMove() {
@@ -135,6 +142,9 @@ public class Player : MonoBehaviour {
 
 	public void EnableWeapons () {
 		_weapon.SetActive(true);
+		hasWeapon = true;
+		_uiManager.ShowAmmoText();
+
 	}
 
 }

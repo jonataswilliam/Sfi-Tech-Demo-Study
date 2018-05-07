@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour {
 
 	[SerializeField] private Text _textAmmo;
 	[SerializeField] private GameObject coin;
+	[SerializeField] private GameObject ammoText;
 	public void UpdateAmmo (int count) {		
 		if(count == 99999) {
 			_textAmmo.text = "Reloading...";
@@ -21,5 +22,9 @@ public class UIManager : MonoBehaviour {
 
 	public void RemoveCoin () {
 		coin.SetActive(false);
+	}
+
+	public void ShowAmmoText () {
+		ammoText.SetActive(true);
 	}
 }
